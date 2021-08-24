@@ -1,0 +1,38 @@
+.container{
+    width: 500px;
+    margin: 0 auto;
+    margin-top: 30px;
+    /* background-color: #eee; */
+    padding:30px 20px;
+    display: flex;
+}
+
+.input{
+    background-color: #fff;
+    font-size: 17px;
+    line-height: 2.3;
+    border: 1px solid #eee;
+    display: inline-block;
+    margin: 15px;
+    margin-left: 50px;
+    border-radius: 4px;
+}
+.submit{
+    background-color: #fff;
+    font-size: 17px;
+    line-height: 2.3;
+    border: 1px solid #eee;
+    padding: 6px 60px;
+    margin-left: 35px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+.post{
+    background-color: #ccc;
+    flex:1;
+}
+.get{
+    background-color: #ddd;
+    flex:1;
+    text-align: center;
+}

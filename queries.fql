@@ -1,0 +1,119 @@
+// db:test collection:villa  secret
+Create(
+  Ref( 
+    
+    Collection('villa'), '2' 
+       
+    ), 
+    
+    { data:{ name: "villa-2", price: "120" } }
+    
+  )
+
+  // Create  villas document by Ref -Sample
+
+Map(
+  [
+    [ "7", { name: "villa-d-3", price: "110" } ],
+    [ "8", { name: "villa-d-4", price: "120" } ],
+  ],
+  Lambda(
+    ["id", "data"],
+    Create(Ref(Collection("villas"), Var("id")), { data: Var("data") })
+  )
+)
+
+  // Create dates document by Ref -Sample
+
+Map(
+  [
+    [ "2012", { villa: Ref(Collection("villas"), "5"), date: "1513" } ],
+  ],
+  Lambda(
+    ["id", "data"],
+    Create(Ref(Collection("dates"), Var("id")), { data: Var("data") })
+  )
+)
+
+//  Create dates with no Ref 
+Map(
+  [
+    [  { villa: Ref(Collection("villas"), "5"), date: "1813" } ],
+  ],
+  Lambda(
+    ["data"],
+    Create(Collection("dates"), { data: Var("data") })
+  )
+)
+//Select  unbooked hotels  Refs  by given dates
+
+Difference(Select( 'data', Paginate( Match('all_hotels') )  ), Union( Map(["1515", "1513"], Lambda("x", Select("data", Paginate(Match("hotel_by_date", Var("x") )) )))) )
+
+// Get  unbooked hotels  details by given dates
+Map(Difference(Select( 'data', Paginate( Match('all_hotels') )  ), Union( Map(["1515", "1513"], Lambda("x", Select("data", Paginate(Match("hotel_by_date", Var("x") )) )))) ),Lambda('x',Get(Var('x')) ))
+   
+
+
+
+
+Select('data',
+Paginate(
+  Match(
+    'all_letters'
+    )
+  ,{after:Select('after',  
+  Paginate(
+  Match(
+    'all_letters'
+    )
+  ,{size:3})
+  
+  ),  size:3})
+  )
+
+
+Difference(Select( 'data', Paginate( Match('all_hotels') )  ), Union( Map(["1515", "1513"], Lambda("x", Select("data", Paginate(Match("hotel_by_date", Var("x") )) )))) )
+
+Map(["1814", "1815"], Lambda("x", Select("data", Paginate(Match("villas_by_date", Var("x") )) )))
+Union( Map(["1814", "1815"], Lambda("x", Select("data", Paginate(Match("villas_by_date", Var("x") )) ))) )
+
+
+Difference(Select( 'data', Paginate( Match('all_villas') )  ), Union( Map(["1814", "1815"], Lambda("x", Select("data", Paginate(Match("villas_by_date", Var("x") )) ))) ))
+
+Take(5,Drop(5,Map(Difference(Select( 'data', Paginate( Match('all_villas') )  ), Union( Map(["179", "1710"], Lambda("x", Select("data", Paginate(Match("villas_by_date", Var("x") )) ))) )),Lambda('x',Get(Var('x')) ))))
+
+Take(4,Drop(5,Difference(Select( 'data', Paginate( Match('all_villas') )  ), Union( Map(["1814", "1815", "1822", "183"], Lambda("x", Select("data", Paginate(Match("villas_by_date", Var("x") )) ))) ))))
+
+
+
+Delete(
+  Ref(
+    Collection(
+      ('dates')), '11728'
+    )
+  )
+
+
+// Select("data", Paginate(Match(Index("get_dates_by_villa"), "102")))
+
+Create(
+    Ref(
+         Collection(
+                     ('dates'),  '10110711'), 
+                     data:{  
+                       id: '101',
+                       name:Ref( Collection('villas'), '101'),
+                       date: '10711'
+                       )
+                       
+                     }
+    )
+   )
+  )
+
+   // Random  number between 100   2000
+  function getRandomInt() {
+  return Math.floor(Math.random()* (2000 - 100) + 100);
+}
+
+console.log(getRandomInt());
