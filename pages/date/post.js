@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useStore } from '../../components/date/state'
+import { useStore } from '../../components/date/post/state'
 
 export default function Post() {
 
@@ -8,13 +8,14 @@ export default function Post() {
   const setShow = useStore(state => state.setShow)
   const setCall = useStore(state => state.setCall)
   const setErrorText = useStore(state => state.setErrorText)
+  const setCallDates = useStore(state => state.setCallDates)
 
 
   useEffect(
     async () => {
       setCall(false)
 
-      const res = await fetch('/api/create_date', {
+      const res = await fetch('/api/post_date', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -28,7 +29,8 @@ export default function Post() {
       }
 
       if (res.status === 200) {
-        setShow('block')
+        // setShow('block')
+        setCallDates(true)
         console.log('status 200')
       }
     }, []

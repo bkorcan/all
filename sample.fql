@@ -1,0 +1,51 @@
+ Select('data', Paginate(Match("villas_by_date", '10905')))
+ Select('data', Paginate(Match("dates_by_villa", '101')))
+//////////////////////////////////////////////////////////////////
+Select('data',
+Get(
+  Ref(
+    Collection(
+      'villa'
+      ), '101'
+    )
+  )
+  )
+
+  //////////////////////////////////////////////////////////////////
+Map(
+
+    Select('data', Paginate(Match("villas_by_date", '10905'))),
+
+    Lambda(
+
+        ['id'],
+        Get(
+          Ref(
+           Collection(
+                      'villa'
+                     ), Var('id')
+            )
+          )
+
+         ) 
+     )
+//////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////
+q.Map(
+
+    q.Select('data', q.Paginate(q.Match("villas_by_date", '10905'))),
+
+    q.Lambda(
+
+        ['id'],
+        q.Get(
+          q.Ref(
+           q.Collection(
+                      'villa'
+                     ), q.Var('id')
+            )
+          )
+          
+         ) 
+     )
+//////////////////////////////////////////////////////////////////

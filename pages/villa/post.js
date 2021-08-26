@@ -15,7 +15,7 @@ export default function Post() {
     async () => {
       setCall(false)
 
-      const res = await fetch('/api/create_villa', {
+      const res = await fetch('/api/post_villa', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
