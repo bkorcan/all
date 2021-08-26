@@ -60,6 +60,7 @@ export default function FormDate() {
     const handleInput = ()=>{
         // console.log(nodeId.current.value.length)
         if(nodeId.current.value.length === 3){
+            setShow('none')
             setId(nodeId.current.value)
             setCallDates(true)
 
