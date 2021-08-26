@@ -1,11 +1,10 @@
 import Style from '../../styles/date.module.css'
 import { useStore } from '../../components/date/post/state'
-import { useRef, useCallback } from 'react';
+import { useRef } from 'react';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/style.css';
 import Post from './post';
 import GetDates from './get_dates';
-import { DisabledDates } from '../../components/disable-array'
 
 
 
@@ -24,6 +23,7 @@ export default function FormDate() {
     const show = useStore(state => state.show)
     const setShow = useStore(state => state.setShow)
     const callDates = useStore(state => state.callDates)
+    const setCallDates = useStore(state => state.setCallDates)
     const disabled = useStore(state => state.disabled)
 
 
@@ -52,17 +52,25 @@ export default function FormDate() {
         )
     }
 
-    console.log(arrayDisabled)
+    // console.log(arrayDisabled)
 
     function ErrorCall() {
         return <div style={{ color: 'red', marginTop: 20 }}>{errorText}</div>
     }
+    const handleInput = ()=>{
+        // console.log(nodeId.current.value.length)
+        if(nodeId.current.value.length === 3){
+            setId(nodeId.current.value)
+            setCallDates(true)
 
+        }
+
+    }
 
     return (
         <div className={Style.container} >
 
-            <input ref={nodeId} className={Style.input} size='5' type='number' placeholder='Villa id' />
+            <input ref={nodeId} className={Style.input} size='5' type='number' placeholder='Villa id'  onChange={handleInput} />
 
             <input ref={nodeDate} className={Style.input} size='8' placeholder='date' />
 

@@ -29,12 +29,6 @@ const setDisabledDays = useStore(state => state.setDisabledDays)
                 setShow('block')
                 console.log("GET status 200")
                 setDisabled(await res.json())
-                // console.log(await res.json())
-                // console.log( [...disabled[0]] )
-                // console.log('Year:'+[...disabled[0]][0])
-                // setDisabledDays()
-                // console.log('Month:'+[...disabled[0]][1].toString()+[...disabled[0]][2].toString())
-                // console.log('Day:'+[...disabled[0]][3].toString()+[...disabled[0]][4].toString())
                 
             }
         }, []
