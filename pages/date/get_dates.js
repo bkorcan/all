@@ -26,9 +26,9 @@ const setDisabledDays = useStore(state => state.setDisabledDays)
 
             if (res.status === 200) {
                 setCallDates(false)
+                setDisabled(await res.json())
                 setShow('block')
                 console.log("GET status 200")
-                setDisabled(await res.json())
                 
             }
         }, []

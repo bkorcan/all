@@ -6,6 +6,7 @@ import 'react-day-picker/style.css';
 import Post from './post';
 import GetDates from './get_dates';
 
+const bookedStyle = { border: '1px solid red' };
 
 
 export default function FormDate() {
@@ -79,7 +80,13 @@ export default function FormDate() {
 
             <DayPicker mode="single" onDayClick={handleDayClick} className={Style.date}
                 style={{ display: show }}
-                disabled={arrayDisabled}
+                // disabled={arrayDisabled}
+                modifiers={{
+                    booked: arrayDisabled
+                  }}
+                  modifierStyles={{
+                    booked: bookedStyle
+                  }}
 
             />
 
