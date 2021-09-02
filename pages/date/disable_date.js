@@ -1,6 +1,6 @@
 import Style from '../../styles/date.module.css'
 import { useStore } from '../../components/date/post/state'
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/style.css';
 import Post from './post';
@@ -26,11 +26,12 @@ export default function FormDate() {
     const callDates = useStore(state => state.callDates)
     const setCallDates = useStore(state => state.setCallDates)
     const disabled = useStore(state => state.disabled)
+    const date = useStore(state => state.date)
 
 
 
     const handleDayClick = (day) => {
-  console.log(day.toLocaleDateString())
+        //   console.log(day.toLocaleDateString())
         nodeDate.current.value = day.toLocaleDateString()
 
         setDate(
@@ -39,28 +40,32 @@ export default function FormDate() {
     }
 
     const handleSubmit = () => {
-        setShow('none')
-        setErrorText('')
-        setId(nodeId.current.value)
-        setCall(true)
-    }
-    if (disabled.length !== 0) {
-        disabled.map((e) =>
 
+        const checkDisabled = disabled.filter(d => d === date)
+
+        if (checkDisabled.length) { console.log(checkDisabled); return; }
+         else {
+            console.log(checkDisabled);
+            setShow('none')
+            setErrorText('')
+            setId(nodeId.current.value)
+            setCall(true)
+        }
+    }
+
+    if (disabled.length !== 0) {
+        // console.log(disabled)
+        disabled.map((e) =>
             arrayDisabled.push(new Date('202' + [...e[0]].toString(), (([...e][1] + [...e][2]) - 1).toString(), [...e][3].toString() + [...e][4].toString()
             )
             )
         )
     }
-
-    // console.log(arrayDisabled)
-
     function ErrorCall() {
         return <div style={{ color: 'red', marginTop: 20 }}>{errorText}</div>
     }
-    const handleInput = ()=>{
-        // console.log(nodeId.current.value.length)
-        if(nodeId.current.value.length === 3){
+    const handleInput = () => {
+        if (nodeId.current.value.length === 3) {
             setShow('none')
             setId(nodeId.current.value)
             setCallDates(true)
@@ -72,7 +77,7 @@ export default function FormDate() {
     return (
         <div className={Style.container} >
 
-            <input ref={nodeId} className={Style.input} size='5' type='number' placeholder='Villa id'  onChange={handleInput} />
+            <input ref={nodeId} className={Style.input} size='5' type='number' placeholder='Villa id' onChange={handleInput} />
 
             <input ref={nodeDate} className={Style.input} size='8' placeholder='date' />
 
@@ -83,10 +88,10 @@ export default function FormDate() {
                 // disabled={arrayDisabled}
                 modifiers={{
                     booked: arrayDisabled
-                  }}
-                  modifierStyles={{
+                }}
+                modifierStyles={{
                     booked: bookedStyle
-                  }}
+                }}
 
             />
 
