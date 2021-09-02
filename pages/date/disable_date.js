@@ -29,7 +29,7 @@ export default function FormDate() {
 
 
     const handleDayClick = (day) => {
-
+  console.log(day.toLocaleDateString())
         nodeDate.current.value = day.toLocaleDateString()
 
         setDate(
