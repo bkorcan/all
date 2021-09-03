@@ -109,7 +109,7 @@ export default function FormDate() {
 
             <input ref={nodeId} className={Style.input} size='5' type='number' placeholder='Villa id' onChange={handleInput} />
 
-            <input ref={nodeDate} className={Style.input} size='8' placeholder='date' />
+            {/* <input ref={nodeDate} className={Style.input} size='8' placeholder='date' /> */}
 
             <h3 className={Style.h3} >Select date</h3>
 
@@ -125,7 +125,7 @@ export default function FormDate() {
 
             />
 
-            <button type='submit' onClick={handleSubmit} className={Style.submit} >Post Date</button>
+            {/* <button type='submit' onClick={handleSubmit} className={Style.submit} >Post Date</button> */}
 
             {
                 call ? <Post /> : <ErrorCall />
