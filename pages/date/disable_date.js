@@ -13,6 +13,7 @@ const bookedStyle = { border: '1px solid red' };
 export default function FormDate() {
 
     let arrayDisabled = []
+    let checkDisabled = []
     const nodeId = useRef();
     const nodeDate = useRef();
 
@@ -37,15 +38,33 @@ export default function FormDate() {
     const handleDayClick = (day) => {
         //   console.log(day.toLocaleDateString())
         nodeDate.current.value = day.toLocaleDateString()
-
+       let dateCurrent = day.getFullYear().toString().substr(-1) + ('0' + (day.getMonth() + 1)).slice(-2) + ('0' + day.getDate()).slice(-2)
         setDate(
-            day.getFullYear().toString().substr(-1) + ('0' + (day.getMonth() + 1)).slice(-2) + ('0' + day.getDate()).slice(-2)
+            dateCurrent
         )
+     
+        checkDisabled = disabled.filter(d => d === dateCurrent)
+
+
+        if (checkDisabled.length) {
+            setShow('none')
+            setErrorText('')
+            setDateId(nodeId.current.value + dateCurrent)
+            console.log(nodeId.current.value + dateCurrent)
+            setCallDelete(true)
+
+        }
+        else {
+            console.log(checkDisabled);
+            setShow('none')
+            setErrorText('')
+            setId(nodeId.current.value)
+            setCall(true)
+        }
     }
 
     const handleSubmit = () => {
 
-        const checkDisabled = disabled.filter(d => d === date)
 
         if (checkDisabled.length) {
             setShow('none')
