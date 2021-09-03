@@ -1,10 +1,11 @@
 import Style from '../../styles/date.module.css'
 import { useStore } from '../../components/date/post/state'
-import { useRef, useEffect } from 'react';
+import { useRef } from 'react';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/style.css';
 import Post from './post';
 import GetDates from './get_dates';
+import DeleteDate from './delete_date'
 
 const bookedStyle = { border: '1px solid red' };
 
@@ -27,6 +28,9 @@ export default function FormDate() {
     const setCallDates = useStore(state => state.setCallDates)
     const disabled = useStore(state => state.disabled)
     const date = useStore(state => state.date)
+    const callDelete = useStore(state => state.callDelete)
+    const setCallDelete = useStore(state => state.setCallDelete)
+    const setDateId = useStore(state => state.setDateId)
 
 
 
@@ -43,8 +47,15 @@ export default function FormDate() {
 
         const checkDisabled = disabled.filter(d => d === date)
 
-        if (checkDisabled.length) { console.log(checkDisabled); return; }
-         else {
+        if (checkDisabled.length) {
+            setShow('none')
+            setErrorText('')
+            setDateId(nodeId.current.value + date)
+            console.log(nodeId.current.value + date)
+            setCallDelete(true)
+
+        }
+        else {
             console.log(checkDisabled);
             setShow('none')
             setErrorText('')
@@ -99,6 +110,10 @@ export default function FormDate() {
 
             {
                 call ? <Post /> : <ErrorCall />
+
+            }
+            {
+                callDelete ? <DeleteDate /> : <ErrorCall />
 
             }
             {
